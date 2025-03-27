@@ -14,172 +14,7 @@ call Vector.new 2
 call SnakeSegment.head 1
 call Snake.fromHead 1
 pop this 3
-push this 3
-push constant 1
-push constant 0
-call Vector.new 2
-push constant 0
-not
-call Snake.move 3
-pop temp 0
-push this 3
-push constant 1
-push constant 0
-call Vector.new 2
-push constant 0
-not
-call Snake.move 3
-pop temp 0
-push this 3
-push constant 1
-push constant 0
-call Vector.new 2
-push constant 0
-not
-call Snake.move 3
-pop temp 0
 push pointer 0
-return
-function Field.drawGrid 2
-push argument 0
-pop pointer 0
-push constant 0
-pop local 0
-push constant 0
-not
-call Screen.setColor 1
-pop temp 0
-label WHILE_EXP0
-push local 0
-push this 0
-push constant 1
-add
-lt
-not
-if-goto WHILE_END0
-push local 0
-push this 2
-call Math.multiply 2
-push constant 0
-push local 0
-push this 2
-call Math.multiply 2
-push this 1
-push this 2
-call Math.multiply 2
-call Screen.drawLine 4
-pop temp 0
-push local 0
-push constant 1
-add
-pop local 0
-goto WHILE_EXP0
-label WHILE_END0
-push constant 0
-pop local 1
-label WHILE_EXP1
-push local 1
-push this 1
-push constant 1
-add
-lt
-not
-if-goto WHILE_END1
-push constant 0
-push local 1
-push this 2
-call Math.multiply 2
-push this 0
-push this 2
-call Math.multiply 2
-push local 1
-push this 2
-call Math.multiply 2
-call Screen.drawLine 4
-pop temp 0
-push local 1
-push constant 1
-add
-pop local 1
-goto WHILE_EXP1
-label WHILE_END1
-push pointer 0
-call Field.drawSnake 1
-pop temp 0
-push constant 0
-return
-function Field.drawSnake 1
-push argument 0
-pop pointer 0
-push this 3
-call Snake.getTail 1
-pop local 0
-push pointer 0
-push local 0
-call SnakeSegment.getPos 1
-push constant 0
-not
-call Field.drawSquare 3
-pop temp 0
-label WHILE_EXP0
-push local 0
-call SnakeSegment.getPrev 1
-push local 0
-eq
-not
-not
-if-goto WHILE_END0
-push pointer 0
-push local 0
-call SnakeSegment.getPos 1
-push constant 0
-not
-call Field.drawSquare 3
-pop temp 0
-push local 0
-call SnakeSegment.getPrev 1
-pop local 0
-goto WHILE_EXP0
-label WHILE_END0
-push constant 0
-return
-function Field.drawSquare 0
-push argument 0
-pop pointer 0
-push argument 2
-call Screen.setColor 1
-pop temp 0
-push argument 1
-call Vector.getX 1
-push this 2
-call Math.multiply 2
-push constant 1
-add
-push argument 1
-call Vector.getY 1
-push this 2
-call Math.multiply 2
-push constant 1
-add
-push argument 1
-call Vector.getX 1
-push this 2
-call Math.multiply 2
-push this 2
-add
-push constant 1
-sub
-push argument 1
-call Vector.getY 1
-push this 2
-call Math.multiply 2
-push this 2
-add
-push constant 1
-sub
-call Screen.drawRectangle 4
-pop temp 0
-push constant 0
 return
 function Field.moveSnake 2
 push argument 0
@@ -191,7 +26,7 @@ push pointer 0
 push local 1
 call SnakeSegment.getPos 1
 push constant 0
-call Field.drawSquare 3
+call FieldDrawer.drawSquare 3
 pop temp 0
 push this 3
 push argument 1
@@ -219,7 +54,7 @@ push local 1
 call SnakeSegment.getPos 1
 push constant 0
 not
-call Field.drawSquare 3
+call FieldDrawer.drawSquare 3
 pop temp 0
 push constant 0
 not
@@ -263,8 +98,66 @@ label IF_TRUE1
 push constant 0
 return
 label IF_FALSE1
+push pointer 0
+push argument 1
+call Field.checkPosInSnake 2
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+return
+label IF_FALSE2
 push constant 0
 not
+return
+function Field.checkPosInSnake 2
+push argument 0
+pop pointer 0
+push this 3
+call Snake.getTail 1
+pop local 0
+label WHILE_EXP0
+push local 0
+push local 0
+call SnakeSegment.getPrev 1
+eq
+not
+not
+if-goto WHILE_END0
+push local 0
+call SnakeSegment.getPos 1
+pop local 1
+push local 1
+push argument 1
+call Vector.eq 2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push local 0
+call SnakeSegment.getPrev 1
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Field.getWidth 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Field.getHeight 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Field.getCellSize 0
+push argument 0
+pop pointer 0
+push this 2
 return
 function Field.dispose 0
 push argument 0

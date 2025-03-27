@@ -1,0 +1,71 @@
+class FieldDrawer {
+    static int screenWidth;
+    static int screenHeight;
+    static int centerX;
+    static int centerY;
+
+    function void init(int sw, int sh){
+        let screenWidth = sw;
+        let screenHeight = sh;
+        let centerX = Math.divide(screenWidth, 2);
+        let centerY = Math.divide(screenHeight, 2);
+        return;
+    }
+
+    function void drawGrid(Field f){
+        var int i, j;
+        var int w, h, cellsize;
+        var Vector shift;
+        let w = f.getWidth();
+        let h = f.getHeight();
+        let cellsize = f.getCellSize();
+        let shift = FieldDrawer.getShift(f);
+        let i = 0;
+        do Screen.setColor(true);
+        while (i < (w + 1)){
+            do Screen.drawLine(i * cellsize + shift[0], shift[1], i * cellsize + shift[0], h * cellsize + shift[1]);
+            let i = i + 1;
+        }
+        let j = 0;
+        while (j < (h + 1)){
+            do Screen.drawLine(shift[0], j * cellsize + shift[1], w * cellsize + shift[0], j * cellsize + shift[1]);
+            let j = j + 1;
+        }
+        do shift.dispose();
+        return;
+    }
+
+    function void drawSnake(Field f, Snake s){
+        var SnakeSegment curr;
+        let curr = s.getTail();
+        do FieldDrawer.drawSquare(f, curr.getPos(), true);
+        while (~(curr.getPrev() = curr)){
+            do FieldDrawer.drawSquare(f, curr.getPos(), true);
+            let curr = curr.getPrev();
+        }
+        return;
+    }
+
+    function void drawSquare(Field f, Vector pos, boolean color){
+        var Vector shift;
+        var int _cellsize;
+        let shift = FieldDrawer.getShift(f);
+        let _cellsize = f.getCellSize();
+        do Screen.setColor(color);
+        do Screen.drawRectangle(
+            pos[0] * _cellsize + 1 + shift[0],
+            pos[1] * _cellsize + 1 + shift[1],
+            pos[0] * _cellsize + _cellsize - 1 + shift[0],
+            pos[1] * _cellsize + _cellsize - 1 + shift[1]
+        );
+        do shift.dispose();
+        return;
+    }
+
+    function Vector getShift(Field f){
+        var int sx, sy;
+        let sx = centerX - Math.divide(f.getWidth() * f.getCellSize(), 2);
+        let sy = centerY - Math.divide(f.getHeight() * f.getCellSize(), 2);
+        return Vector.new(sx, sy);
+    }
+}

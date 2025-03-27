@@ -4,9 +4,12 @@ class Main {
         var Game game;
         let grid = Field.new(15, 15, 15);
         let game = Game.new(grid);
-        do grid.drawGrid();
+        do FieldDrawer.init(512,256);
+        do FieldDrawer.drawGrid(grid);
+        do FieldDrawer.drawSnake(grid, grid[3]);
         do game.run();
         do game.dispose();
+        do Output.printString("Game Over");
         return;
     }
 }

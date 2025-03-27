@@ -1,0 +1,35 @@
+class SnakeSegment {
+    field Vector position;
+    field SnakeSegment prev;
+
+    constructor SnakeSegment new(Vector v, SnakeSegment p){
+        let position = v;
+        let prev = p;
+        return this;
+    }
+
+    constructor SnakeSegment head(Vector v){
+        let position = v;
+        let prev = this;
+        return this;
+    }
+
+    method void setPrev(SnakeSegment seg){
+        let prev = seg;
+        return;
+    }
+
+    method Vector getPos(){
+        return position;
+    }
+
+    method SnakeSegment getPrev(){
+        return prev;
+    }
+
+    method void dispose(){
+        do position.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

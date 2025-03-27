@@ -1,0 +1,13 @@
+class Math2 {
+    function int mod(int a, int b){
+        var int d;
+        if (a < b){
+            return a;
+        }
+        if (a = b){
+            return 0;
+        }
+        let d = Math.divide(a, b);
+        return a - b * d;
+    }
+}

@@ -1,0 +1,84 @@
+class Field {
+    field int _width;
+    field int _height;
+    field int _cellsize;
+    field Snake _snake;
+
+    constructor Field new(int width, int height, int cellsize){
+        let _width = width;
+        let _height = height;
+        let _cellsize = cellsize;
+        let _snake = Snake.fromHead(SnakeSegment.head(Vector.new(0, 0)));
+        do _snake.move(Vector.new(1,0),true);
+        do _snake.move(Vector.new(1,0),true);
+        do _snake.move(Vector.new(1,0),true);
+        return this;
+    }
+
+    method void drawGrid(){
+        var int i, j;
+        let i = 0;
+        do Screen.setColor(true);
+        while (i < (_width + 1)){
+            do Screen.drawLine(i * _cellsize, 0, i * _cellsize, _height * _cellsize);
+            let i = i + 1;
+        }
+        let j = 0;
+        while (j < (_height + 1)){
+            do Screen.drawLine(0, j * _cellsize, _width * _cellsize, j * _cellsize);
+            let j = j + 1;
+        }
+        do drawSnake();
+        return;
+    }
+
+    method void drawSnake(){
+        var SnakeSegment curr;
+        let curr = _snake.getTail();
+        do drawSquare(curr.getPos(), true);
+        while (~(curr.getPrev() = curr)){
+            do drawSquare(curr.getPos(), true);
+            let curr = curr.getPrev();
+        }
+        return;
+    }
+
+    method void drawSquare(Vector pos, boolean color){
+        do Screen.setColor(color);
+        do Screen.drawRectangle(pos.getX() * _cellsize + 1, pos.getY() * _cellsize + 1, pos.getX() * _cellsize + _cellsize - 1, pos.getY() * _cellsize + _cellsize - 1);
+        return;
+    }
+
+    method boolean moveSnake(Vector v){
+        var boolean valid;
+        var SnakeSegment seg;
+        let seg = _snake.getTail();
+        do drawSquare(seg.getPos(), false);
+        do _snake.move(v, false);
+        let seg = _snake.getHead();
+        let valid = checkPos(seg.getPos());
+        if (~valid){
+            return false;
+        }
+        do drawSquare(seg.getPos(), true);
+        return true;
+    }
+
+    method boolean checkPos(Vector pos){
+        var int x, y;
+        let x = pos.getX();
+        let y = pos.getY();
+        if ((x < 0) | (y < 0)){
+            return false;
+        }
+        if ((x > (_width - 1)) | (y > (_height - 1))){
+            return false;
+        }
+        return true;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+}

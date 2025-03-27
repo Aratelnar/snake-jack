@@ -1,0 +1,58 @@
+function Snake.fromHead 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 0
+pop this 1
+push pointer 0
+return
+function Snake.move 3
+push argument 0
+pop pointer 0
+push this 0
+call SnakeSegment.getPos 1
+pop local 0
+push local 0
+call Vector.copy 1
+pop local 0
+push local 0
+push argument 1
+call Vector.add 2
+pop temp 0
+push local 0
+call SnakeSegment.head 1
+pop local 1
+push this 0
+push local 1
+call SnakeSegment.setPrev 2
+pop temp 0
+push local 1
+pop this 0
+push argument 2
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+pop local 2
+push this 1
+call SnakeSegment.getPrev 1
+pop this 1
+push local 2
+call SnakeSegment.dispose 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Snake.getTail 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Snake.getHead 0
+push argument 0
+pop pointer 0
+push this 0
+return

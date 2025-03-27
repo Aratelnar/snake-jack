@@ -1,0 +1,48 @@
+function SnakeSegment.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+return
+function SnakeSegment.head 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push pointer 0
+pop this 1
+push pointer 0
+return
+function SnakeSegment.setPrev 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 1
+push constant 0
+return
+function SnakeSegment.getPos 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function SnakeSegment.getPrev 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function SnakeSegment.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Vector.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

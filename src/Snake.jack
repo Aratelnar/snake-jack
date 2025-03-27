@@ -1,0 +1,35 @@
+class Snake {
+    field SnakeSegment head;
+    field SnakeSegment tail;
+
+    constructor Snake fromHead(SnakeSegment h){
+        let head = h;
+        let tail = h;
+        return this;
+    }
+
+    method void move(Vector dir, boolean grow){
+        var Vector newHeadPos;
+        var SnakeSegment newHead, prevTail;
+        let newHeadPos = head.getPos();
+        let newHeadPos = newHeadPos.copy();
+        do newHeadPos.add(dir);
+        let newHead = SnakeSegment.head(newHeadPos);
+        do head.setPrev(newHead);
+        let head = newHead;
+        if (~grow){
+            let prevTail = tail;
+            let tail = tail.getPrev();
+            do prevTail.dispose();
+        }
+        return;
+    }
+
+    method SnakeSegment getTail(){
+        return tail;
+    }
+
+    method SnakeSegment getHead(){
+        return head;
+    }
+}

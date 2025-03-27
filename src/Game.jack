@@ -1,0 +1,84 @@
+class Game {
+    field Field _field;
+    field int direction; // right, down, left, up
+
+    static Vector down;
+    static Vector right;
+    static Vector up;
+    static Vector left;
+
+    constructor Game new(Field f){
+        let direction = Vector.new(0, 0);
+        let _field = f;
+        let down = Vector.new(0, 1);
+        let right = Vector.new(1, 0);
+        let up = Vector.new(0, -1);
+        let left = Vector.new(-1, 0);
+        return this;
+    }
+
+    method void run(){
+        var char key;
+        var boolean exit;
+        var int tick;
+        var Vector v;
+        let exit = false;
+        let tick = 1;
+        while (~(exit)){
+            let key = Keyboard.keyPressed();
+
+            if (key = 140){
+                let exit = true;
+            }
+
+            if (key = 132){
+                do changeDirection(0);
+            } if (key = 133){
+                do changeDirection(1);
+            } if (key = 130) {
+                do changeDirection(2);
+            } if (key = 131) {
+                do changeDirection(3);
+            }
+
+            if (tick = 0){
+                let v = getVector(direction);
+                let exit = ~(_field.moveSnake(v));
+            }
+
+            let tick = Math2.mod(tick + 1, 10);
+
+            do Sys.wait(20);
+        }
+        return;
+    }
+
+    method void changeDirection(int dir) {
+        if (direction = (dir + 2)) {
+            return;
+        } if (direction = (dir - 2)) {
+            return;
+        }
+        let direction = dir;
+        return;
+    }
+
+    method Vector getVector(int dir){
+        if(dir = 0){
+            return right;
+        } if (dir = 1) {
+            return down;
+        } if (dir = 2) {
+            return left;
+        } if (dir = 3) {
+            return up;
+        }
+        return right;
+    }
+
+    method void dispose(){
+        do _field.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

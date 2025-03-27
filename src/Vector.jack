@@ -1,0 +1,39 @@
+class Vector {
+    field int _x;
+    field int _y;
+
+    constructor Vector new(int x, int y){
+        let _x = x;
+        let _y = y;
+        return this;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int getX(){
+        return _x;
+    }
+
+    method int getY(){
+        return _y;
+    }
+
+    method void add(Vector other){
+        let _x = _x + other.getX();
+        let _y = _y + other.getY();
+        return;
+    }
+
+    method void sub(Vector other){
+        let _x = _x - other.getX();
+        let _y = _y - other.getY();
+        return;
+    }
+
+    method Vector copy(){
+        return Vector.new(_x, _y);
+    }
+}

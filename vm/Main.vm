@@ -22,6 +22,9 @@ pop pointer 1
 push that 0
 call FieldDrawer.drawSnake 2
 pop temp 0
+push local 0
+call Field.generateApple 1
+pop temp 0
 push local 1
 call Game.run 1
 pop temp 0

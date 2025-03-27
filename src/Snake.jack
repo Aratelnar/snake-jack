@@ -32,4 +32,18 @@ class Snake {
     method SnakeSegment getHead(){
         return head;
     }
+
+    method void dispose () {
+        var SnakeSegment curr;
+        var SnakeSegment temp;
+        let curr = tail;
+        while(~(curr = curr.getPrev())){
+            let temp = curr.getPrev();
+            do curr.dispose();
+            let curr = temp;
+        }
+        do head.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
 }

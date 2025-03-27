@@ -1,6 +1,8 @@
 class Math2 {
     function int mod(int a, int b){
         var int d;
+        let a = Math.abs(a);
+        let b = Math.abs(b);
         if (a < b){
             return a;
         }
@@ -8,6 +10,6 @@ class Math2 {
             return 0;
         }
         let d = Math.divide(a, b);
-        return a - b * d;
+        return a - (b * d);
     }
 }

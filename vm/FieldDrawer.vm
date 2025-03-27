@@ -168,6 +168,61 @@ goto WHILE_EXP0
 label WHILE_END0
 push constant 0
 return
+function FieldDrawer.drawApple 2
+push argument 0
+call FieldDrawer.getShift 1
+pop local 0
+push argument 0
+call Field.getCellSize 1
+pop local 1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 0
+push argument 1
+add
+pop pointer 1
+push that 0
+push local 1
+call Math.multiply 2
+push local 1
+push constant 2
+call Math.divide 2
+add
+push constant 0
+push local 0
+add
+pop pointer 1
+push that 0
+add
+push constant 1
+push argument 1
+add
+pop pointer 1
+push that 0
+push local 1
+call Math.multiply 2
+push local 1
+push constant 2
+call Math.divide 2
+add
+push constant 1
+push local 0
+add
+pop pointer 1
+push that 0
+add
+push local 1
+push constant 3
+call Math.divide 2
+call Screen.drawCircle 3
+pop temp 0
+push local 0
+call Vector.dispose 1
+pop temp 0
+push constant 0
+return
 function FieldDrawer.drawSquare 2
 push argument 0
 call FieldDrawer.getShift 1

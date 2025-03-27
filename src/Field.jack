@@ -3,28 +3,58 @@ class Field {
     field int _height;
     field int _cellsize;
     field Snake _snake;
+    field Vector _apple;
+    field Random rnd;
 
     constructor Field new(int width, int height, int cellsize){
         let _width = width;
         let _height = height;
         let _cellsize = cellsize;
         let _snake = Snake.fromHead(SnakeSegment.head(Vector.new(0, 0)));
+        let _apple = Vector.new(-1, -1);
+        let rnd = Random.new(18);
         return this;
     }
 
     method boolean moveSnake(Vector v){
-        var boolean valid;
+        var boolean valid, grow;
         var SnakeSegment seg;
+
+        var Vector t;
+        do Output.moveCursor(0,0);
+        do _apple.print();
+        do Output.moveCursor(1,0);
+        let seg = _snake.getHead();
+        let t = seg.getPos();
+        do t.print();
+
         let seg = _snake.getTail();
         do FieldDrawer.drawSquare(this, seg.getPos(), false);
-        do _snake.move(v, false);
+        let grow = checkAppleInFront(v);
+        do _snake.move(v, grow);
         let seg = _snake.getHead();
         let valid = checkPos(seg.getPos());
         if (~valid){
             return false;
         }
+        if (grow){
+            do generateApple();
+        }
         do FieldDrawer.drawSquare(this, seg.getPos(), true);
         return true;
+    }
+
+    method boolean checkAppleInFront(Vector v){
+        var SnakeSegment head;
+        var Vector aheadPos;
+        var boolean result;
+        let head = _snake.getHead();
+        let aheadPos = head.getPos();
+        let aheadPos = aheadPos.copy();
+        do aheadPos.add(v);
+        let result = _apple.eq(aheadPos);
+        do aheadPos.dispose();
+        return result;
     }
 
     method boolean checkPos(Vector pos){
@@ -58,6 +88,26 @@ class Field {
         return false;
     }
 
+    method void generateApple(){
+        var int x, y;
+        do _apple.dispose();
+        let x = Math2.mod(rnd.next(), _width);
+        let y = Math2.mod(rnd.next(), _height);
+        let _apple = Vector.new(x, y);
+
+        do Output.moveCursor(3,0);
+        do _apple.print();
+
+        while (checkPosInSnake(_apple)){
+            do _apple.dispose();
+            let x = Math2.mod(rnd.next(), _width);
+            let y = Math2.mod(rnd.next(), _height);
+            let _apple = Vector.new(x, y);
+        }
+        do FieldDrawer.drawApple(this, _apple);
+        return;
+    }
+
     method int getWidth(){
         return _width;
     }
@@ -69,6 +119,9 @@ class Field {
     }
 
     method void dispose(){
+        do rnd.dispose();
+        do _apple.dispose();
+        do _snake.dispose();
         do Memory.deAlloc(this);
         return;
     }

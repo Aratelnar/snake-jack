@@ -46,6 +46,26 @@ class FieldDrawer {
         return;
     }
 
+    function void drawApple (Field f, Vector pos) {
+        var Vector shift;
+        var int _cellsize;
+        let shift = FieldDrawer.getShift(f);
+        let _cellsize = f.getCellSize();
+        do Screen.setColor(true);
+        do Screen.drawCircle(
+            pos[0] * _cellsize + Math.divide(_cellsize,2) + shift[0],
+            pos[1] * _cellsize + Math.divide(_cellsize,2) + shift[1],
+            Math.divide(_cellsize,3));
+        /*do Screen.drawRectangle(
+            pos[0] * _cellsize + 3 + shift[0],
+            pos[1] * _cellsize + 3 + shift[1],
+            pos[0] * _cellsize + _cellsize - 3 + shift[0],
+            pos[1] * _cellsize + _cellsize - 3 + shift[1]
+        );*/
+        do shift.dispose();
+        return;
+    }
+
     function void drawSquare(Field f, Vector pos, boolean color){
         var Vector shift;
         var int _cellsize;

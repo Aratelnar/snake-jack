@@ -6,11 +6,10 @@ class Main {
         let game = Game.new(grid);
         do FieldDrawer.init(512,256);
         do FieldDrawer.drawGrid(grid);
-        do FieldDrawer.drawSnake(grid, grid[3]);
+        do FieldDrawer.drawSnake(grid, grid.getSnake());
         do grid.generateApple();
         do game.run();
         do game.dispose();
-        do Output.printString("Game Over");
         return;
     }
 }

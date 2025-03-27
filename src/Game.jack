@@ -24,6 +24,9 @@ class Game {
         var Vector v;
         let exit = false;
         let tick = 1;
+
+
+        do Output.printString("Score: ");
         while (~(exit)){
             let key = Keyboard.keyPressed();
 
@@ -33,15 +36,20 @@ class Game {
 
             if (key = 132){
                 do changeDirection(0);
-            } if (key = 133){
+            }
+            if (key = 133){
                 do changeDirection(1);
-            } if (key = 130) {
+            }
+            if (key = 130){
                 do changeDirection(2);
-            } if (key = 131) {
+            }
+            if (key = 131){
                 do changeDirection(3);
             }
 
             if (tick = 0){
+                do Output.moveCursor(0, 7);
+                do Output.printInt(_field.getScore());
                 let v = getVector(direction);
                 let exit = ~(_field.moveSnake(v));
             }
@@ -50,13 +58,23 @@ class Game {
 
             do Sys.wait(20);
         }
+
+        do Output.moveCursor(10,27);
+        do Output.printString("           ");
+        do Output.moveCursor(11,27);
+        do Output.printString("           ");
+        do Output.moveCursor(12,27);
+        do Output.printString("           ");
+        do Output.moveCursor(11,28);
+        do Output.printString("Game Over");
         return;
     }
 
-    method void changeDirection(int dir) {
-        if (direction = (dir + 2)) {
+    method void changeDirection(int dir){
+        if (direction = (dir + 2)){
             return;
-        } if (direction = (dir - 2)) {
+        }
+        if (direction = (dir - 2)){
             return;
         }
         let direction = dir;
@@ -64,13 +82,16 @@ class Game {
     }
 
     method Vector getVector(int dir){
-        if(dir = 0){
+        if (dir = 0){
             return right;
-        } if (dir = 1) {
+        }
+        if (dir = 1){
             return down;
-        } if (dir = 2) {
+        }
+        if (dir = 2){
             return left;
-        } if (dir = 3) {
+        }
+        if (dir = 3){
             return up;
         }
         return right;

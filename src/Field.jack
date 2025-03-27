@@ -2,6 +2,7 @@ class Field {
     field int _width;
     field int _height;
     field int _cellsize;
+    field int _score;
     field Snake _snake;
     field Vector _apple;
     field Random rnd;
@@ -13,20 +14,13 @@ class Field {
         let _snake = Snake.fromHead(SnakeSegment.head(Vector.new(0, 0)));
         let _apple = Vector.new(-1, -1);
         let rnd = Random.new(18);
+        let _score = 0;
         return this;
     }
 
     method boolean moveSnake(Vector v){
         var boolean valid, grow;
         var SnakeSegment seg;
-
-        var Vector t;
-        do Output.moveCursor(0,0);
-        do _apple.print();
-        do Output.moveCursor(1,0);
-        let seg = _snake.getHead();
-        let t = seg.getPos();
-        do t.print();
 
         let seg = _snake.getTail();
         do FieldDrawer.drawSquare(this, seg.getPos(), false);
@@ -38,6 +32,7 @@ class Field {
             return false;
         }
         if (grow){
+            let _score = _score + 1; 
             do generateApple();
         }
         do FieldDrawer.drawSquare(this, seg.getPos(), true);
@@ -94,10 +89,6 @@ class Field {
         let x = Math2.mod(rnd.next(), _width);
         let y = Math2.mod(rnd.next(), _height);
         let _apple = Vector.new(x, y);
-
-        do Output.moveCursor(3,0);
-        do _apple.print();
-
         while (checkPosInSnake(_apple)){
             do _apple.dispose();
             let x = Math2.mod(rnd.next(), _width);
@@ -116,6 +107,12 @@ class Field {
     }
     method int getCellSize(){
         return _cellsize;
+    }
+    method int getScore(){
+        return _score;
+    }
+    method Snake getSnake(){
+        return _snake;
     }
 
     method void dispose(){

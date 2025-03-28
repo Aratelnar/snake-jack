@@ -135,17 +135,10 @@ call Vector.dispose 1
 pop temp 0
 push constant 0
 return
-function FieldDrawer.drawSnake 1
+function FieldDrawer.drawSnake 2
 push argument 1
 call Snake.getTail 1
 pop local 0
-push argument 0
-push local 0
-call SnakeSegment.getPos 1
-push constant 0
-not
-call FieldDrawer.drawSquare 3
-pop temp 0
 label WHILE_EXP0
 push local 0
 call SnakeSegment.getPrev 1
@@ -154,18 +147,31 @@ eq
 not
 not
 if-goto WHILE_END0
+push local 0
+call SnakeSegment.getPrev 1
+pop local 1
 push argument 0
 push local 0
 call SnakeSegment.getPos 1
+push local 1
+call SnakeSegment.getPos 1
+push constant 2
 push constant 0
 not
-call FieldDrawer.drawSquare 3
+call FieldDrawer.drawRect 5
 pop temp 0
-push local 0
-call SnakeSegment.getPrev 1
+push local 1
 pop local 0
 goto WHILE_EXP0
 label WHILE_END0
+push argument 0
+push local 0
+call SnakeSegment.getPos 1
+push constant 2
+push constant 0
+not
+call FieldDrawer.drawSquare 4
+pop temp 0
 push constant 0
 return
 function FieldDrawer.drawApple 2
@@ -230,7 +236,7 @@ pop local 0
 push argument 0
 call Field.getCellSize 1
 pop local 1
-push argument 2
+push argument 3
 call Screen.setColor 1
 pop temp 0
 push constant 0
@@ -240,7 +246,7 @@ pop pointer 1
 push that 0
 push local 1
 call Math.multiply 2
-push constant 1
+push argument 2
 add
 push constant 0
 push local 0
@@ -255,7 +261,7 @@ pop pointer 1
 push that 0
 push local 1
 call Math.multiply 2
-push constant 1
+push argument 2
 add
 push constant 1
 push local 0
@@ -272,7 +278,7 @@ push local 1
 call Math.multiply 2
 push local 1
 add
-push constant 1
+push argument 2
 sub
 push constant 0
 push local 0
@@ -289,7 +295,7 @@ push local 1
 call Math.multiply 2
 push local 1
 add
-push constant 1
+push argument 2
 sub
 push constant 1
 push local 0
@@ -298,6 +304,101 @@ pop pointer 1
 push that 0
 add
 call Screen.drawRectangle 4
+pop temp 0
+push local 0
+call Vector.dispose 1
+pop temp 0
+push constant 0
+return
+function FieldDrawer.drawRect 4
+push argument 0
+call FieldDrawer.getShift 1
+pop local 0
+push argument 1
+push argument 2
+call Vector.min 2
+pop local 1
+push argument 1
+push argument 2
+call Vector.max 2
+pop local 2
+push argument 0
+call Field.getCellSize 1
+pop local 3
+push argument 4
+call Screen.setColor 1
+pop temp 0
+push constant 0
+push local 1
+add
+pop pointer 1
+push that 0
+push local 3
+call Math.multiply 2
+push argument 3
+add
+push constant 0
+push local 0
+add
+pop pointer 1
+push that 0
+add
+push constant 1
+push local 1
+add
+pop pointer 1
+push that 0
+push local 3
+call Math.multiply 2
+push argument 3
+add
+push constant 1
+push local 0
+add
+pop pointer 1
+push that 0
+add
+push constant 0
+push local 2
+add
+pop pointer 1
+push that 0
+push local 3
+call Math.multiply 2
+push local 3
+add
+push argument 3
+sub
+push constant 0
+push local 0
+add
+pop pointer 1
+push that 0
+add
+push constant 1
+push local 2
+add
+pop pointer 1
+push that 0
+push local 3
+call Math.multiply 2
+push local 3
+add
+push argument 3
+sub
+push constant 1
+push local 0
+add
+pop pointer 1
+push that 0
+add
+call Screen.drawRectangle 4
+pop temp 0
+push local 1
+call Vector.dispose 1
+pop temp 0
+push local 2
+call Vector.dispose 1
 pop temp 0
 push local 0
 call Vector.dispose 1

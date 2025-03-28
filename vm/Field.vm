@@ -27,7 +27,7 @@ push constant 0
 pop this 3
 push pointer 0
 return
-function Field.moveSnake 3
+function Field.moveSnake 4
 push argument 0
 pop pointer 0
 push this 4
@@ -36,13 +36,17 @@ pop local 2
 push pointer 0
 push local 2
 call SnakeSegment.getPos 1
+push constant 1
 push constant 0
-call FieldDrawer.drawSquare 3
+call FieldDrawer.drawSquare 4
 pop temp 0
 push pointer 0
 push argument 1
 call Field.checkAppleInFront 2
 pop local 1
+push this 4
+call Snake.getHead 1
+pop local 3
 push this 4
 push argument 1
 push local 1
@@ -76,12 +80,24 @@ push pointer 0
 call Field.generateApple 1
 pop temp 0
 label IF_FALSE1
+push this 3
+push constant 0
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 2
+pop local 3
+label IF_FALSE2
 push pointer 0
 push local 2
 call SnakeSegment.getPos 1
+push local 3
+call SnakeSegment.getPos 1
+push constant 2
 push constant 0
 not
-call FieldDrawer.drawSquare 3
+call FieldDrawer.drawRect 5
 pop temp 0
 push constant 0
 not

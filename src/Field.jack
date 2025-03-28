@@ -20,11 +20,12 @@ class Field {
 
     method boolean moveSnake(Vector v){
         var boolean valid, grow;
-        var SnakeSegment seg;
+        var SnakeSegment seg, prevHead;
 
         let seg = _snake.getTail();
-        do FieldDrawer.drawSquare(this, seg.getPos(), false);
+        do FieldDrawer.drawSquare(this, seg.getPos(), 1, false);
         let grow = checkAppleInFront(v);
+        let prevHead = _snake.getHead();
         do _snake.move(v, grow);
         let seg = _snake.getHead();
         let valid = checkPos(seg.getPos());
@@ -32,10 +33,13 @@ class Field {
             return false;
         }
         if (grow){
-            let _score = _score + 1; 
+            let _score = _score + 1;
             do generateApple();
         }
-        do FieldDrawer.drawSquare(this, seg.getPos(), true);
+        if (_score = 0){
+            let prevHead = seg;
+        }
+        do FieldDrawer.drawRect(this, seg.getPos(), prevHead.getPos(), 2, true);
         return true;
     }
 

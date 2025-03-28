@@ -36,48 +36,50 @@ class FieldDrawer {
     }
 
     function void drawSnake(Field f, Snake s){
-        var SnakeSegment curr;
+        var SnakeSegment curr, prev;
         let curr = s.getTail();
-        do FieldDrawer.drawSquare(f, curr.getPos(), true);
         while (~(curr.getPrev() = curr)){
-            do FieldDrawer.drawSquare(f, curr.getPos(), true);
-            let curr = curr.getPrev();
+            let prev = curr.getPrev();
+            do FieldDrawer.drawRect(f, curr.getPos(), prev.getPos(), 2, true);
+            let curr = prev;
         }
+        do FieldDrawer.drawSquare(f, curr.getPos(), 2, true);
         return;
     }
 
-    function void drawApple (Field f, Vector pos) {
+    function void drawApple(Field f, Vector pos){
         var Vector shift;
         var int _cellsize;
         let shift = FieldDrawer.getShift(f);
         let _cellsize = f.getCellSize();
         do Screen.setColor(true);
-        do Screen.drawCircle(
-            pos[0] * _cellsize + Math.divide(_cellsize,2) + shift[0],
-            pos[1] * _cellsize + Math.divide(_cellsize,2) + shift[1],
-            Math.divide(_cellsize,3));
-        /*do Screen.drawRectangle(
-            pos[0] * _cellsize + 3 + shift[0],
-            pos[1] * _cellsize + 3 + shift[1],
-            pos[0] * _cellsize + _cellsize - 3 + shift[0],
-            pos[1] * _cellsize + _cellsize - 3 + shift[1]
-        );*/
+        do Screen.drawCircle(pos[0] * _cellsize + Math.divide(_cellsize, 2) + shift[0], pos[1] * _cellsize + Math.divide(_cellsize, 2) + shift[1], Math.divide(_cellsize, 3));
         do shift.dispose();
         return;
     }
 
-    function void drawSquare(Field f, Vector pos, boolean color){
+    function void drawSquare(Field f, Vector pos, int padding, boolean color){
         var Vector shift;
         var int _cellsize;
         let shift = FieldDrawer.getShift(f);
         let _cellsize = f.getCellSize();
         do Screen.setColor(color);
-        do Screen.drawRectangle(
-            pos[0] * _cellsize + 1 + shift[0],
-            pos[1] * _cellsize + 1 + shift[1],
-            pos[0] * _cellsize + _cellsize - 1 + shift[0],
-            pos[1] * _cellsize + _cellsize - 1 + shift[1]
-        );
+        do Screen.drawRectangle(pos[0] * _cellsize + padding + shift[0], pos[1] * _cellsize + padding + shift[1], pos[0] * _cellsize + _cellsize - padding + shift[0], pos[1] * _cellsize + _cellsize - padding + shift[1]);
+        do shift.dispose();
+        return;
+    }
+
+    function void drawRect(Field f, Vector pos1, Vector pos2, int padding, boolean color){
+        var Vector shift, min, max;
+        var int _cellsize;
+        let shift = FieldDrawer.getShift(f);
+        let min = pos1.min(pos2);
+        let max = pos1.max(pos2);
+        let _cellsize = f.getCellSize();
+        do Screen.setColor(color);
+        do Screen.drawRectangle(min[0] * _cellsize + padding + shift[0], min[1] * _cellsize + padding + shift[1], max[0] * _cellsize + _cellsize - padding + shift[0], max[1] * _cellsize + _cellsize - padding + shift[1]);
+        do min.dispose();
+        do max.dispose();
         do shift.dispose();
         return;
     }

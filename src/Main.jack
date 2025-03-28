@@ -1,13 +1,8 @@
 class Main {
     function void main(){
-        var Field grid;
         var Game game;
-        let grid = Field.new(15, 15, 15);
-        let game = Game.new(grid);
-        do FieldDrawer.init(512,256);
-        do FieldDrawer.drawGrid(grid);
-        do FieldDrawer.drawSnake(grid, grid.getSnake());
-        do grid.generateApple();
+        do FieldDrawer.init(512,256,15); // screen dimensions + cell size
+        let game = Game.new(Field.new(15, 15));
         do game.run();
         do game.dispose();
         return;

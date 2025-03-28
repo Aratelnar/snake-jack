@@ -3,17 +3,19 @@ push argument 0
 pop static 0
 push argument 1
 pop static 1
+push argument 2
+pop static 2
 push static 0
 push constant 2
 call Math.divide 2
-pop static 2
+pop static 3
 push static 1
 push constant 2
 call Math.divide 2
-pop static 3
+pop static 4
 push constant 0
 return
-function FieldDrawer.drawGrid 6
+function FieldDrawer.drawGrid 5
 push argument 0
 call Field.getWidth 1
 pop local 2
@@ -21,11 +23,8 @@ push argument 0
 call Field.getHeight 1
 pop local 3
 push argument 0
-call Field.getCellSize 1
-pop local 4
-push argument 0
 call FieldDrawer.getShift 1
-pop local 5
+pop local 4
 push constant 0
 pop local 0
 push constant 0
@@ -41,33 +40,33 @@ lt
 not
 if-goto WHILE_END0
 push local 0
-push local 4
+push static 2
 call Math.multiply 2
 push constant 0
-push local 5
+push local 4
 add
 pop pointer 1
 push that 0
 add
 push constant 1
-push local 5
+push local 4
 add
 pop pointer 1
 push that 0
 push local 0
-push local 4
+push static 2
 call Math.multiply 2
 push constant 0
-push local 5
+push local 4
 add
 pop pointer 1
 push that 0
 add
 push local 3
-push local 4
+push static 2
 call Math.multiply 2
 push constant 1
-push local 5
+push local 4
 add
 pop pointer 1
 push that 0
@@ -91,33 +90,33 @@ lt
 not
 if-goto WHILE_END1
 push constant 0
-push local 5
+push local 4
 add
 pop pointer 1
 push that 0
 push local 1
-push local 4
+push static 2
 call Math.multiply 2
 push constant 1
-push local 5
+push local 4
 add
 pop pointer 1
 push that 0
 add
 push local 2
-push local 4
+push static 2
 call Math.multiply 2
 push constant 0
-push local 5
+push local 4
 add
 pop pointer 1
 push that 0
 add
 push local 1
-push local 4
+push static 2
 call Math.multiply 2
 push constant 1
-push local 5
+push local 4
 add
 pop pointer 1
 push that 0
@@ -130,7 +129,7 @@ add
 pop local 1
 goto WHILE_EXP1
 label WHILE_END1
-push local 5
+push local 4
 call Vector.dispose 1
 pop temp 0
 push constant 0
@@ -174,13 +173,10 @@ call FieldDrawer.drawSquare 4
 pop temp 0
 push constant 0
 return
-function FieldDrawer.drawApple 2
+function FieldDrawer.drawApple 1
 push argument 0
 call FieldDrawer.getShift 1
 pop local 0
-push argument 0
-call Field.getCellSize 1
-pop local 1
 push constant 0
 not
 call Screen.setColor 1
@@ -190,9 +186,9 @@ push argument 1
 add
 pop pointer 1
 push that 0
-push local 1
+push static 2
 call Math.multiply 2
-push local 1
+push static 2
 push constant 2
 call Math.divide 2
 add
@@ -207,9 +203,9 @@ push argument 1
 add
 pop pointer 1
 push that 0
-push local 1
+push static 2
 call Math.multiply 2
-push local 1
+push static 2
 push constant 2
 call Math.divide 2
 add
@@ -219,7 +215,7 @@ add
 pop pointer 1
 push that 0
 add
-push local 1
+push static 2
 push constant 3
 call Math.divide 2
 call Screen.drawCircle 3
@@ -229,13 +225,10 @@ call Vector.dispose 1
 pop temp 0
 push constant 0
 return
-function FieldDrawer.drawSquare 2
+function FieldDrawer.drawSquare 1
 push argument 0
 call FieldDrawer.getShift 1
 pop local 0
-push argument 0
-call Field.getCellSize 1
-pop local 1
 push argument 3
 call Screen.setColor 1
 pop temp 0
@@ -244,7 +237,7 @@ push argument 1
 add
 pop pointer 1
 push that 0
-push local 1
+push static 2
 call Math.multiply 2
 push argument 2
 add
@@ -259,7 +252,7 @@ push argument 1
 add
 pop pointer 1
 push that 0
-push local 1
+push static 2
 call Math.multiply 2
 push argument 2
 add
@@ -274,9 +267,9 @@ push argument 1
 add
 pop pointer 1
 push that 0
-push local 1
+push static 2
 call Math.multiply 2
-push local 1
+push static 2
 add
 push argument 2
 sub
@@ -291,9 +284,9 @@ push argument 1
 add
 pop pointer 1
 push that 0
-push local 1
+push static 2
 call Math.multiply 2
-push local 1
+push static 2
 add
 push argument 2
 sub
@@ -310,7 +303,7 @@ call Vector.dispose 1
 pop temp 0
 push constant 0
 return
-function FieldDrawer.drawRect 4
+function FieldDrawer.drawRect 3
 push argument 0
 call FieldDrawer.getShift 1
 pop local 0
@@ -322,9 +315,6 @@ push argument 1
 push argument 2
 call Vector.max 2
 pop local 2
-push argument 0
-call Field.getCellSize 1
-pop local 3
 push argument 4
 call Screen.setColor 1
 pop temp 0
@@ -333,7 +323,7 @@ push local 1
 add
 pop pointer 1
 push that 0
-push local 3
+push static 2
 call Math.multiply 2
 push argument 3
 add
@@ -348,7 +338,7 @@ push local 1
 add
 pop pointer 1
 push that 0
-push local 3
+push static 2
 call Math.multiply 2
 push argument 3
 add
@@ -363,9 +353,9 @@ push local 2
 add
 pop pointer 1
 push that 0
-push local 3
+push static 2
 call Math.multiply 2
-push local 3
+push static 2
 add
 push argument 3
 sub
@@ -380,9 +370,9 @@ push local 2
 add
 pop pointer 1
 push that 0
-push local 3
+push static 2
 call Math.multiply 2
-push local 3
+push static 2
 add
 push argument 3
 sub
@@ -406,21 +396,19 @@ pop temp 0
 push constant 0
 return
 function FieldDrawer.getShift 2
-push static 2
+push static 3
 push argument 0
 call Field.getWidth 1
-push argument 0
-call Field.getCellSize 1
+push static 2
 call Math.multiply 2
 push constant 2
 call Math.divide 2
 sub
 pop local 0
-push static 3
+push static 4
 push argument 0
 call Field.getHeight 1
-push argument 0
-call Field.getCellSize 1
+push static 2
 call Math.multiply 2
 push constant 2
 call Math.divide 2

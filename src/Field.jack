@@ -1,35 +1,51 @@
 class Field {
     field int _width;
     field int _height;
-    field int _cellsize;
     field int _score;
     field Snake _snake;
     field Vector _apple;
     field Random rnd;
 
-    constructor Field new(int width, int height, int cellsize){
+    constructor Field new(int width, int height){
         let _width = width;
         let _height = height;
-        let _cellsize = cellsize;
-        let _snake = Snake.fromHead(SnakeSegment.head(Vector.new(0, 0)));
-        let _apple = Vector.new(-1, -1);
         let rnd = Random.new(18);
-        let _score = 0;
         return this;
     }
 
-    method boolean moveSnake(Vector v){
-        var boolean valid, grow;
-        var SnakeSegment seg, prevHead;
+    method void init(){
+        let _snake = Snake.fromHead(SnakeSegment.head(Vector.new(0, 0)));
+        let _apple = Vector.new(-1, -1);
+        let _score = 0;
 
-        let seg = _snake.getTail();
-        do FieldDrawer.drawSquare(this, seg.getPos(), 1, false);
+        do generateApple();
+        do FieldDrawer.drawGrid(this);
+        do FieldDrawer.drawSnake(this, _snake);
+        return;
+    }
+
+    method boolean handleDirection(Vector v){
+        var boolean exit;
+        do Output.moveCursor(0, 7);
+        do Output.printInt(_score);
+        let exit = ~(moveSnake(v));
+        return exit;
+    }
+
+    method boolean moveSnake(Vector v){
+        var boolean validPos, grow;
+        var SnakeSegment head, tail, prevHead;
+
+        let tail = _snake.getTail();
         let grow = checkAppleInFront(v);
+        if (~grow){
+            do FieldDrawer.drawSquare(this, tail.getPos(), 1, false);
+        }
         let prevHead = _snake.getHead();
         do _snake.move(v, grow);
-        let seg = _snake.getHead();
-        let valid = checkPos(seg.getPos());
-        if (~valid){
+        let head = _snake.getHead();
+        let validPos = checkPos(head.getPos());
+        if (~validPos){
             return false;
         }
         if (grow){
@@ -37,9 +53,9 @@ class Field {
             do generateApple();
         }
         if (_score = 0){
-            let prevHead = seg;
+            let prevHead = head;
         }
-        do FieldDrawer.drawRect(this, seg.getPos(), prevHead.getPos(), 2, true);
+        do FieldDrawer.drawRect(this, head.getPos(), prevHead.getPos(), 2, true);
         return true;
     }
 
@@ -108,9 +124,6 @@ class Field {
     }
     method int getHeight(){
         return _height;
-    }
-    method int getCellSize(){
-        return _cellsize;
     }
     method int getScore(){
         return _score;

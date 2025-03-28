@@ -1,12 +1,14 @@
 class FieldDrawer {
     static int screenWidth;
     static int screenHeight;
+    static int fieldCellSize;
     static int centerX;
     static int centerY;
 
-    function void init(int sw, int sh){
+    function void init(int sw, int sh, int cellSize){
         let screenWidth = sw;
         let screenHeight = sh;
+        let fieldCellSize = cellSize;
         let centerX = Math.divide(screenWidth, 2);
         let centerY = Math.divide(screenHeight, 2);
         return;
@@ -14,21 +16,30 @@ class FieldDrawer {
 
     function void drawGrid(Field f){
         var int i, j;
-        var int w, h, cellsize;
+        var int w, h;
         var Vector shift;
         let w = f.getWidth();
         let h = f.getHeight();
-        let cellsize = f.getCellSize();
         let shift = FieldDrawer.getShift(f);
         let i = 0;
         do Screen.setColor(true);
         while (i < (w + 1)){
-            do Screen.drawLine(i * cellsize + shift[0], shift[1], i * cellsize + shift[0], h * cellsize + shift[1]);
+            do Screen.drawLine(
+                i * fieldCellSize + shift[0],
+                shift[1],
+                i * fieldCellSize + shift[0],
+                h * fieldCellSize + shift[1]
+            );
             let i = i + 1;
         }
         let j = 0;
         while (j < (h + 1)){
-            do Screen.drawLine(shift[0], j * cellsize + shift[1], w * cellsize + shift[0], j * cellsize + shift[1]);
+            do Screen.drawLine(
+                shift[0],
+                j * fieldCellSize + shift[1],
+                w * fieldCellSize + shift[0],
+                j * fieldCellSize + shift[1]
+            );
             let j = j + 1;
         }
         do shift.dispose();
@@ -49,35 +60,43 @@ class FieldDrawer {
 
     function void drawApple(Field f, Vector pos){
         var Vector shift;
-        var int _cellsize;
         let shift = FieldDrawer.getShift(f);
-        let _cellsize = f.getCellSize();
         do Screen.setColor(true);
-        do Screen.drawCircle(pos[0] * _cellsize + Math.divide(_cellsize, 2) + shift[0], pos[1] * _cellsize + Math.divide(_cellsize, 2) + shift[1], Math.divide(_cellsize, 3));
+        do Screen.drawCircle(
+            pos[0] * fieldCellSize + Math.divide(fieldCellSize, 2) + shift[0],
+            pos[1] * fieldCellSize + Math.divide(fieldCellSize, 2) + shift[1],
+            Math.divide(fieldCellSize, 3)
+        );
         do shift.dispose();
         return;
     }
 
     function void drawSquare(Field f, Vector pos, int padding, boolean color){
         var Vector shift;
-        var int _cellsize;
         let shift = FieldDrawer.getShift(f);
-        let _cellsize = f.getCellSize();
         do Screen.setColor(color);
-        do Screen.drawRectangle(pos[0] * _cellsize + padding + shift[0], pos[1] * _cellsize + padding + shift[1], pos[0] * _cellsize + _cellsize - padding + shift[0], pos[1] * _cellsize + _cellsize - padding + shift[1]);
+        do Screen.drawRectangle(
+            pos[0] * fieldCellSize + padding + shift[0],
+            pos[1] * fieldCellSize + padding + shift[1],
+            pos[0] * fieldCellSize + fieldCellSize - padding + shift[0],
+            pos[1] * fieldCellSize + fieldCellSize - padding + shift[1]
+        );
         do shift.dispose();
         return;
     }
 
     function void drawRect(Field f, Vector pos1, Vector pos2, int padding, boolean color){
         var Vector shift, min, max;
-        var int _cellsize;
         let shift = FieldDrawer.getShift(f);
         let min = pos1.min(pos2);
         let max = pos1.max(pos2);
-        let _cellsize = f.getCellSize();
         do Screen.setColor(color);
-        do Screen.drawRectangle(min[0] * _cellsize + padding + shift[0], min[1] * _cellsize + padding + shift[1], max[0] * _cellsize + _cellsize - padding + shift[0], max[1] * _cellsize + _cellsize - padding + shift[1]);
+        do Screen.drawRectangle(
+            min[0] * fieldCellSize + padding + shift[0],
+            min[1] * fieldCellSize + padding + shift[1],
+            max[0] * fieldCellSize + fieldCellSize - padding + shift[0],
+            max[1] * fieldCellSize + fieldCellSize - padding + shift[1]
+        );
         do min.dispose();
         do max.dispose();
         do shift.dispose();
@@ -86,8 +105,8 @@ class FieldDrawer {
 
     function Vector getShift(Field f){
         var int sx, sy;
-        let sx = centerX - Math.divide(f.getWidth() * f.getCellSize(), 2);
-        let sy = centerY - Math.divide(f.getHeight() * f.getCellSize(), 2);
+        let sx = centerX - Math.divide(f.getWidth() * fieldCellSize, 2);
+        let sy = centerY - Math.divide(f.getHeight() * fieldCellSize, 2);
         return Vector.new(sx, sy);
     }
 }

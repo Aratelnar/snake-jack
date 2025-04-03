@@ -29,7 +29,7 @@ call Math.multiply 2
 push static 1
 add
 push static 2
-call Math2.mod 2
+call MathExt.mod 2
 pop this 0
 push this 0
 return

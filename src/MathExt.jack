@@ -1,4 +1,4 @@
-class Math2 {
+class MathExt {
     function int mod(int a, int b){
         var int d;
         let a = Math.abs(a);

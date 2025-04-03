@@ -251,52 +251,46 @@ return
 function Field.generateApple 2
 push argument 0
 pop pointer 0
-push this 4
-call Vector.dispose 1
+push pointer 0
+call Field.moveAppleOnField 1
 pop temp 0
-push this 5
-call Random.next 1
-push this 0
-call Math2.mod 2
-pop local 0
-push this 5
-call Random.next 1
-push this 1
-call Math2.mod 2
-pop local 1
-push local 0
-push local 1
-call Vector.new 2
-pop this 4
 label WHILE_EXP0
 push pointer 0
 push this 4
 call Field.checkPosInSnake 2
 not
 if-goto WHILE_END0
-push this 4
-call Vector.dispose 1
+push pointer 0
+call Field.moveAppleOnField 1
 pop temp 0
-push this 5
-call Random.next 1
-push this 0
-call Math2.mod 2
-pop local 0
-push this 5
-call Random.next 1
-push this 1
-call Math2.mod 2
-pop local 1
-push local 0
-push local 1
-call Vector.new 2
-pop this 4
 goto WHILE_EXP0
 label WHILE_END0
 push pointer 0
 push this 4
 call FieldDrawer.drawApple 2
 pop temp 0
+push constant 0
+return
+function Field.moveAppleOnField 2
+push argument 0
+pop pointer 0
+push this 4
+call Vector.dispose 1
+pop temp 0
+push this 5
+call Random.next 1
+push this 0
+call MathExt.mod 2
+pop local 0
+push this 5
+call Random.next 1
+push this 1
+call MathExt.mod 2
+pop local 1
+push local 0
+push local 1
+call Vector.new 2
+pop this 4
 push constant 0
 return
 function Field.getWidth 0

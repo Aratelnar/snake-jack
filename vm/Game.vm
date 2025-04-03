@@ -74,6 +74,10 @@ label IF_FALSE0
 push local 0
 push constant 132
 eq
+push local 0
+push constant 68
+eq
+or
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
@@ -85,6 +89,10 @@ label IF_FALSE1
 push local 0
 push constant 133
 eq
+push local 0
+push constant 83
+eq
+or
 if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
@@ -96,6 +104,10 @@ label IF_FALSE2
 push local 0
 push constant 130
 eq
+push local 0
+push constant 65
+eq
+or
 if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
@@ -107,6 +119,10 @@ label IF_FALSE3
 push local 0
 push constant 131
 eq
+push local 0
+push constant 87
+eq
+or
 if-goto IF_TRUE4
 goto IF_FALSE4
 label IF_TRUE4
@@ -124,7 +140,7 @@ label IF_TRUE5
 push this 0
 push pointer 0
 push this 1
-call Game.getVector 2
+call Game.getDirectionVector 2
 call Field.handleDirection 2
 pop local 1
 label IF_FALSE5
@@ -132,7 +148,7 @@ push local 2
 push constant 1
 add
 push constant 10
-call Math2.mod 2
+call MathExt.mod 2
 pop local 2
 push constant 20
 call Sys.wait 1
@@ -260,7 +276,7 @@ push argument 1
 pop this 1
 push constant 0
 return
-function Game.getVector 0
+function Game.getDirectionVector 0
 push argument 0
 pop pointer 0
 push argument 1

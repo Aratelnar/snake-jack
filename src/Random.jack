@@ -16,7 +16,7 @@ class Random {
     }
 
     method int next(){
-        let _seed = Math2.mod(a * _seed + c, m);
+        let _seed = MathExt.mod(a * _seed + c, m);
         return _seed;
     }
 }

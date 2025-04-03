@@ -34,15 +34,15 @@ class Vector {
     }
 
     method Vector max(Vector other){
-        return Vector.new(Math.max(_x, other[0]), Math.max(_y, other[1]));
+        return Vector.new(Math.max(_x, other.getX()), Math.max(_y, other.getY()));
     }
 
     method Vector min(Vector other){
-        return Vector.new(Math.min(_x, other[0]), Math.min(_y, other[1]));
+        return Vector.new(Math.min(_x, other.getX()), Math.min(_y, other.getY()));
     }
 
     method boolean eq(Vector other){
-        return (_x = other[0]) & (_y = other[1]);
+        return (_x = other.getX()) & (_y = other.getY());
     }
 
     method void print(){

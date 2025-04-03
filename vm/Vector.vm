@@ -60,18 +60,12 @@ function Vector.max 0
 push argument 0
 pop pointer 0
 push this 0
-push constant 0
 push argument 1
-add
-pop pointer 1
-push that 0
+call Vector.getX 1
 call Math.max 2
 push this 1
-push constant 1
 push argument 1
-add
-pop pointer 1
-push that 0
+call Vector.getY 1
 call Math.max 2
 call Vector.new 2
 return
@@ -79,18 +73,12 @@ function Vector.min 0
 push argument 0
 pop pointer 0
 push this 0
-push constant 0
 push argument 1
-add
-pop pointer 1
-push that 0
+call Vector.getX 1
 call Math.min 2
 push this 1
-push constant 1
 push argument 1
-add
-pop pointer 1
-push that 0
+call Vector.getY 1
 call Math.min 2
 call Vector.new 2
 return
@@ -98,18 +86,12 @@ function Vector.eq 0
 push argument 0
 pop pointer 0
 push this 0
-push constant 0
 push argument 1
-add
-pop pointer 1
-push that 0
+call Vector.getX 1
 eq
 push this 1
-push constant 1
 push argument 1
-add
-pop pointer 1
-push that 0
+call Vector.getY 1
 eq
 and
 return
